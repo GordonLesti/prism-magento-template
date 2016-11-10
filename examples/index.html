@@ -29,7 +29,7 @@
     order=$order}}</code></pre>
 
         <h3>trans</h3>
-<pre><code class="language-magentotemplate">{{trans &quot;Credit memo for your %store_name order&quot; store_name=$store.getFrontendName()}}</code></pre>
+<pre><code class="language-magentotemplate">{{trans &#39;You can check the status of your order by &lt;a href=&quot;%account_url&quot;&gt;logging into your account&lt;&#x2F;a&gt;.&#39; account_url=$this.getUrl($store,&#39;customer&#x2F;account&#x2F;&#39;,[_nosid:1]) |raw}}</code></pre>
 
         <h3>var</h3>
 <pre><code class="language-magentotemplate">{{var template_styles|raw}}</code></pre>
@@ -53,9 +53,12 @@
         <h3>inlinecss</h3>
 <pre><code class="language-magentotemplate">{{inlinecss file=&quot;css&#x2F;email-inline.css&quot;}}</code></pre>
 
+        <h3>layout</h3>
+<pre><code class="language-magentotemplate">{{layout handle=&quot;sales_email_order_shipment_items&quot; shipment=$shipment order=$order}}</code></pre>
+
         <h2>Embedded</h2>
 
-        <h2>header.html</h2>
+        <h3>header.html</h3>
 <pre><code class="language-magentotemplate">&lt;!--
 &#x2F;**
  * Copyright © 2016 Magento. All rights reserved.
@@ -115,6 +118,94 @@
                 &lt;tr&gt;
                     &lt;td class=&quot;main-content&quot;&gt;
                     &lt;!-- Begin Content --&gt;</code></pre>
+
+        <h3>shipment_new.html</h3>
+<pre><code class="language-magentotemplate">&lt;!--
+&#x2F;**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ *&#x2F;
+--&gt;
+&lt;!--@subject {{trans &quot;Your %store_name order has shipped&quot; store_name=$store.getFrontendName()}} @--&gt;
+&lt;!--@vars {
+&quot;var formattedBillingAddress|raw&quot;:&quot;Billing Address&quot;,
+&quot;var this.getUrl($store, &#39;customer&#x2F;account&#x2F;&#39;)&quot;:&quot;Customer Account URL&quot;,
+&quot;var order.getCustomerName()&quot;:&quot;Customer Name&quot;,
+&quot;var order.increment_id&quot;:&quot;Order Id&quot;,
+&quot;var payment_html|raw&quot;:&quot;Payment Details&quot;,
+&quot;var comment&quot;:&quot;Shipment Comment&quot;,
+&quot;var shipment.increment_id&quot;:&quot;Shipment Id&quot;,
+&quot;layout handle=\&quot;sales_email_order_shipment_items\&quot; shipment=$shipment order=$order&quot;:&quot;Shipment Items Grid&quot;,
+&quot;block class=&#39;Magento\\\\Framework\\\\View\\\\Element\\\\Template&#39; area=&#39;frontend&#39; template=&#39;Magento_Sales::email\&#x2F;shipment\&#x2F;track.phtml&#39; shipment=$shipment order=$order&quot;:&quot;Shipment Track Details&quot;,
+&quot;var formattedShippingAddress|raw&quot;:&quot;Shipping Address&quot;,
+&quot;var order.shipping_description&quot;:&quot;Shipping Description&quot;,
+&quot;var order.getShippingDescription()&quot;:&quot;Shipping Description&quot;
+} @--&gt;
+{{template config_path=&quot;design&#x2F;email&#x2F;header_template&quot;}}
+
+&lt;table&gt;
+    &lt;tr class=&quot;email-intro&quot;&gt;
+        &lt;td&gt;
+            &lt;p class=&quot;greeting&quot;&gt;{{trans &quot;%name,&quot; name=$order.getCustomerName()}}&lt;&#x2F;p&gt;
+            &lt;p&gt;
+                {{trans &quot;Thank you for your order from %store_name.&quot; store_name=$store.getFrontendName()}}
+                {{trans &#39;You can check the status of your order by &lt;a href=&quot;%account_url&quot;&gt;logging into your account&lt;&#x2F;a&gt;.&#39; account_url=$this.getUrl($store,&#39;customer&#x2F;account&#x2F;&#39;,[_nosid:1]) |raw}}
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                {{trans &#39;If you have questions about your order, you can email us at &lt;a href=&quot;mailto:%store_email&quot;&gt;%store_email&lt;&#x2F;a&gt;.&#39; store_email=$store_email |raw}}
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;{{trans &quot;Your shipping confirmation is below. Thank you again for your business.&quot;}}&lt;&#x2F;p&gt;
+        &lt;&#x2F;td&gt;
+    &lt;&#x2F;tr&gt;
+    &lt;tr class=&quot;email-summary&quot;&gt;
+        &lt;td&gt;
+            &lt;h1&gt;{{trans &quot;Your Shipment #%shipment_id for Order #%order_id&quot; shipment_id=$shipment.increment_id order_id=$order.increment_id}}&lt;&#x2F;h1&gt;
+        &lt;&#x2F;td&gt;
+    &lt;&#x2F;tr&gt;
+    &lt;tr class=&quot;email-information&quot;&gt;
+        &lt;td&gt;
+            {{depend comment}}
+            &lt;table class=&quot;message-info&quot;&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;
+                        {{var comment|escape|nl2br}}
+                    &lt;&#x2F;td&gt;
+                &lt;&#x2F;tr&gt;
+            &lt;&#x2F;table&gt;
+            {{&#x2F;depend}}
+            {{block class=&#39;Magento\\Framework\\View\\Element\\Template&#39; area=&#39;frontend&#39; template=&#39;Magento_Sales::email&#x2F;shipment&#x2F;track.phtml&#39; shipment=$shipment order=$order}}
+            &lt;table class=&quot;order-details&quot;&gt;
+                &lt;tr&gt;
+                    &lt;td class=&quot;address-details&quot;&gt;
+                        &lt;h3&gt;{{trans &quot;Billing Info&quot;}}&lt;&#x2F;h3&gt;
+                        &lt;p&gt;{{var formattedBillingAddress|raw}}&lt;&#x2F;p&gt;
+                    &lt;&#x2F;td&gt;
+                    {{depend order.getIsNotVirtual()}}
+                    &lt;td class=&quot;address-details&quot;&gt;
+                        &lt;h3&gt;{{trans &quot;Shipping Info&quot;}}&lt;&#x2F;h3&gt;
+                        &lt;p&gt;{{var formattedShippingAddress|raw}}&lt;&#x2F;p&gt;
+                    &lt;&#x2F;td&gt;
+                    {{&#x2F;depend}}
+                &lt;&#x2F;tr&gt;
+                &lt;tr&gt;
+                    &lt;td class=&quot;method-info&quot;&gt;
+                        &lt;h3&gt;{{trans &quot;Payment Method&quot;}}&lt;&#x2F;h3&gt;
+                        {{var payment_html|raw}}
+                    &lt;&#x2F;td&gt;
+                    {{depend order.getIsNotVirtual()}}
+                    &lt;td class=&quot;method-info&quot;&gt;
+                        &lt;h3&gt;{{trans &quot;Shipping Method&quot;}}&lt;&#x2F;h3&gt;
+                        &lt;p&gt;{{var order.getShippingDescription()}}&lt;&#x2F;p&gt;
+                    &lt;&#x2F;td&gt;
+                    {{&#x2F;depend}}
+                &lt;&#x2F;tr&gt;
+            &lt;&#x2F;table&gt;
+            {{layout handle=&quot;sales_email_order_shipment_items&quot; shipment=$shipment order=$order}}
+        &lt;&#x2F;td&gt;
+    &lt;&#x2F;tr&gt;
+&lt;&#x2F;table&gt;
+
+{{template config_path=&quot;design&#x2F;email&#x2F;footer_template&quot;}}</code></pre>
     </section>
     <script src="node_modules/prismjs/prism.js"></script>
     <script src="components/prism-magentotemplate.js"></script>
