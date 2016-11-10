@@ -2,7 +2,7 @@
   "name": "prism-magento-template",
   "version": "1.0.0",
   "description": "Magento template language for Prism syntax highlighter",
-  "main": "src/prism-magentotemplate.js",
+  "main": "components/prism-magentotemplate.js",
   "scripts": {
     "test": "grunt test"
   },
@@ -22,5 +22,15 @@
   },
   "dependencies": {
     "prismjs": "^1.5.1"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-jscs": "^3.0.1",
+    "grunt-jsonlint": "^1.1.0"
   }
 }
