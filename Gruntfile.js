@@ -9,10 +9,10 @@ module.exports = function( grunt ) {
                 jshintrc: true
             },
             grunt: "Gruntfile.js",
-            src: "components/**/*.js"
+            src: "components/prism-magentotemplate.js"
         },
         jscs: {
-            src: "components/*.js",
+            src: "components/prism-magentotemplate.js",
             gruntfile: "Gruntfile.js",
             options: {
                 config: ".jscsrc"
