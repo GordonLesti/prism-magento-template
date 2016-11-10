@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8" />
+<link rel="shortcut icon" href="favicon.png" />
+<title>Examples ▲ Prism Magento template</title>
+<link rel="stylesheet" href="node_modules/prismjs/themes/prism.css" data-noprefix />
+</head>
+<body>
+    <header>
+    	<h2>Examples</h2>
+    	<p>
+            The examples in this page serve a dual purpose: They act as unit tests, making it easy to spot bugs, and at
+            the same time demonstrate what Prism can do, on simple and on edge cases.
+        </p>
+    </header>
+    <section class="language-magentotemplate">
+        <h1>Magento template</h1>
+
+        <h2>Directives</h2>
+
+        <h3>block</h3>
+<pre><code class="language-magentotemplate">{{block
+    class=&#39;Magento\\Framework\\View\\Element\\Template&#39;
+    area=&#39;frontend&#39;
+    template=&#39;Magento_Sales::email&#x2F;shipment&#x2F;track.phtml&#39;
+    shipment=$shipment
+    order=$order}}</code></pre>
+
+        <h3>trans</h3>
+<pre><code class="language-magentotemplate">{{trans &quot;Credit memo for your %store_name order&quot; store_name=$store.getFrontendName()}}</code></pre>
+
+        <h3>var</h3>
+<pre><code class="language-magentotemplate">{{var template_styles|raw}}</code></pre>
+
+        <h3>config</h3>
+<pre><code class="language-magentotemplate">{{config path=&quot;general&#x2F;store_information&#x2F;phone&quot;}}</code></pre>
+
+        <h3>template</h3>
+<pre><code class="language-magentotemplate">{{template config_path="design/email/header_template"}}</code></pre>
+
+        <h3>depend</h3>
+<pre><code class="language-magentotemplate">{{depend company}}{{var company}}{{&#x2F;depend}}</code></pre>
+
+        <h3>if</h3>
+<pre><code class="language-magentotemplate">{{if street1}}{{var street1}}
+{{&#x2F;if}}</code></pre>
+
+        <h3>css</h3>
+<pre><code class="language-magentotemplate">{{css file="css/email.css"}}</code></pre>
+
+        <h3>inlinecss</h3>
+<pre><code class="language-magentotemplate">{{inlinecss file=&quot;css&#x2F;email-inline.css&quot;}}</code></pre>
+
+        <h2>Embedded</h2>
+
+        <h2>header.html</h2>
+<pre><code class="language-magentotemplate">&lt;!--
+&#x2F;**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ *&#x2F;
+--&gt;
+&lt;!--@subject {{trans &quot;Header&quot;}} @--&gt;
+&lt;!--@vars {
+&quot;var logo_height&quot;:&quot;Email Logo Image Height&quot;,
+&quot;var logo_width&quot;:&quot;Email Logo Image Width&quot;,
+&quot;var template_styles|raw&quot;:&quot;Template CSS&quot;
+} @--&gt;
+
+&lt;!DOCTYPE html PUBLIC &quot;-&#x2F;&#x2F;W3C&#x2F;&#x2F;DTD XHTML 1.0 Strict&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;xhtml1&#x2F;DTD&#x2F;xhtml1-strict.dtd&quot;&gt;
+&lt;html xmlns=&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;1999&#x2F;xhtml&quot;&gt;
+&lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text&#x2F;html; charset=utf-8&quot; &#x2F;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1.0, width=device-width&quot; &#x2F;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; &#x2F;&gt;
+    &lt;style type=&quot;text&#x2F;css&quot;&gt;
+        {{var template_styles|raw}}
+
+        {{css file=&quot;css&#x2F;email.css&quot;}}
+    &lt;&#x2F;style&gt;
+&lt;&#x2F;head&gt;
+&lt;body&gt;
+{{inlinecss file=&quot;css&#x2F;email-inline.css&quot;}}
+
+&lt;!-- Begin wrapper table --&gt;
+&lt;table class=&quot;wrapper&quot; width=&quot;100%&quot;&gt;
+    &lt;tr&gt;
+        &lt;td class=&quot;wrapper-inner&quot; align=&quot;center&quot;&gt;
+            &lt;table class=&quot;main&quot; align=&quot;center&quot;&gt;
+                &lt;tr&gt;
+                    &lt;td class=&quot;header&quot;&gt;
+                        &lt;a class=&quot;logo&quot; href=&quot;{{store url=&quot;&quot;}}&quot;&gt;
+                            &lt;img
+                                {{if logo_width}}
+                                    width=&quot;{{var logo_width}}&quot;
+                                {{else}}
+                                    width=&quot;180&quot;
+                                {{&#x2F;if}}
+
+                                {{if logo_height}}
+                                    height=&quot;{{var logo_height}}&quot;
+                                {{else}}
+                                    height=&quot;52&quot;
+                                {{&#x2F;if}}
+
+                                src=&quot;{{var logo_url}}&quot;
+                                alt=&quot;{{var logo_alt}}&quot;
+                                border=&quot;0&quot;
+                            &#x2F;&gt;
+                        &lt;&#x2F;a&gt;
+                    &lt;&#x2F;td&gt;
+                &lt;&#x2F;tr&gt;
+                &lt;tr&gt;
+                    &lt;td class=&quot;main-content&quot;&gt;
+                    &lt;!-- Begin Content --&gt;</code></pre>
+    </section>
+    <script src="node_modules/prismjs/prism.js"></script>
+    <script src="components/prism-magentotemplate.js"></script>
+</body>
+</html>

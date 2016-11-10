@@ -1,0 +1,26 @@
+{
+  "name": "prism-magento-template",
+  "version": "1.0.0",
+  "description": "Magento template language for Prism syntax highlighter",
+  "main": "src/prism-magentotemplate.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GordonLesti/prism-magento-template.git"
+  },
+  "keywords": [
+    "prism",
+    "highlight",
+    "magento"
+  ],
+  "author": "Gordon Lesti <info@gordonlesti.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GordonLesti/prism-magento-template/issues"
+  },
+  "dependencies": {
+    "prismjs": "^1.5.1"
+  }
+}
